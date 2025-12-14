@@ -1,0 +1,108 @@
+:root{
+  --rosa-fondo:#fff0f6;
+  --rosa-header:#d63384;
+  --rosa-bloqueado:#fde2ea;
+  --rosa-disponible:#f48fb1;
+  --rosa-aprobado:#ad1457;
+  --gris:#9e9e9e;
+  --blanco:#ffffff;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--rosa-fondo);
+}
+
+header{
+  background:var(--rosa-header);
+  color:white;
+  padding:25px;
+  text-align:center;
+}
+
+.progreso-container{
+  width:80%;
+  margin:15px auto;
+  background:rgba(255,255,255,.4);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+#barraProgreso{
+  height:18px;
+  width:0%;
+  background:var(--rosa-aprobado);
+  transition:0.4s;
+}
+
+#malla{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.ciclo{
+  background:var(--blanco);
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.ciclo h2{
+  text-align:center;
+  color:var(--rosa-header);
+}
+
+/* RAMOS */
+.ramo{
+  margin:8px 0;
+  padding:10px;
+  border-radius:10px;
+  font-size:14px;
+  transition:.3s;
+}
+
+/* BLOQUEADO */
+.ramo.bloqueado{
+  background:var(--rosa-bloqueado);
+  color:var(--gris);
+  cursor:not-allowed;
+  border:1px dashed var(--gris);
+}
+
+/* DISPONIBLE */
+.ramo.disponible{
+  background:var(--rosa-disponible);
+  color:white;
+  cursor:pointer;
+}
+.ramo.disponible:hover{
+  filter:brightness(1.1);
+}
+
+/* APROBADO */
+.ramo.aprobado{
+  background:var(--rosa-aprobado);
+  color:white;
+  text-decoration:line-through;
+}
+
+/* MENSAJE */
+#mensaje{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--rosa-header);
+  color:white;
+  padding:15px;
+  border-radius:14px;
+  max-width:320px;
+}
+
+.oculto{display:none;}
