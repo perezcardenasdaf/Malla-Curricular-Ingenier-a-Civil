@@ -1,0 +1,113 @@
+const malla = document.getElementById("malla");
+const mensaje = document.getElementById("mensaje");
+const barra = document.getElementById("barraProgreso");
+const texto = document.getElementById("textoProgreso");
+
+let aprobados = JSON.parse(localStorage.getItem("aprobados")) || [];
+
+/* ================= CURSOS ================= */
+const cursos = {
+ "1er ciclo":["MATEMÁTICA I","INTRODUCCIÓN A LA VIDA UNIVERSITARIA","LABORATORIO DE QUÍMICA GENERAL","QUÍMICA GENERAL","INDIVIDUO Y MEDIO AMBIENTE","INGLÉS I","COMPRENSIÓN Y REDACCIÓN DE TEXTOS I"],
+ "2do ciclo":["MATEMÁTICA II","CIUDADANÍA Y REFLEXIÓN ÉTICA","INGLÉS II","COMPRENSIÓN Y REDACCIÓN DE TEXTOS II","ESTADÍSTICA DESCRIPTIVA Y Probabilidades","PRINCIPIOS DE ALGORITMOS","DIBUJO PARA INGENIERÍA"],
+ "3er ciclo":["LABORATORIO DE MECÁNICA CLÁSICA","MECÁNICA CLÁSICA","CÁLCULO I","INVESTIGACIÓN ACADÉMICA","GEOLOGÍA","PLANOS Y METRADOS DE OBRAS DE CONSTRUCCIÓN","INGLÉS III","PROBLEMAS Y DESAFÍOS EN EL PERÚ ACTUAL"],
+ "4to ciclo":["LABORATORIO DE MATERIALES DE CONSTRUCCIÓN","MATERIALES DE CONSTRUCCIÓN","FLUIDOS Y TERMODINÁMICA","LABORATORIO DE FLUIDOS Y TERMODINÁMICA","CÁLCULO II","TOPOGRAFÍA - INGENIERIA CIVIL","ESTÁTICA","INGLÉS IV"],
+ "5to ciclo":["CONSTRUCCIÓN","FUNDAMENTOS DE DINÁMICA","GEOMÁTICA","TECNOLOGÍA DEL CONCRETO","CÁLCULO AVANZADO PARA INGENIERÍA","CALCULO PARA LA TOMA DE DECISIONES","HERRAMIENTAS INFORMÁTICAS PARA LA TOMA DE DECISIONES"],
+ "6to ciclo":["LABORATORIO DE ELASTICIDAD Y RESISTENCIA DE MATERIALES","ELASTICIDAD Y RESISTENCIA DE MATERIALES","LABORATORIO DE MECÁNICA DE FLUIDOS","MECÁNICA DE FLUIDOS","HERRAMIENTAS PARA LA COMUNICACIÓN EFECTIVA","CONSTRUCCIONES ESPECIALES","MECÁNICA DE SUELOS","CURSO INTEGRADOR I - CIVIL"],
+ "7mo ciclo":["LABORATORIO DE HIDRÁULICA DE CANALES","HIDRÁULICA DE CANALES","INGENIERÍA GEOTÉCNICA","MODELADO DE INFORMACIÓN DE EDIFICACIONES - BIM","INGENIERÍA DE CARRETERAS","INSTALACIONES EN EDIFICACIONES","ANÁLISIS ESTRUCTURAL I","FORMACIÓN PARA LA EMPLEABILIDAD"],
+ "8vo ciclo":["ANÁLISIS ESTRUCTURAL II","HIDROLOGÍA APLICADA","SEMINARIO DE INGENIERÍA CIVIL","MECÁNICA DE SUELOS APLICADA","ESTIMACIÓN DE COSTOS Y PLANIFICACIÓN DE OBRA","ADMINISTRACIÓN Y ORGANIZACIÓN DE EMPRESAS CONSTRUCTORAS","CONSTRUCCIÓN DE CARRETERAS","ÉTICA PROFESIONAL"],
+ "9no ciclo":["GESTIÓN DE PROYECTOS DE CONSTRUCCIÓN","INGENIERÍA DE CIMENTACIONES","PAVIMENTOS","INGENIERÍA DE LOS RECURSOS HIDRÁULICOS","SISTEMA INTEGRADO DE GESTIÓN EN LA CONSTRUCCIÓN","FORMACIÓN PARA LA INVESTIGACIÓN - CIVIL","CONCRETO ARMADO"],
+ "10mo ciclo":["INGENIERIA SISMORRESISTENTE","GESTIÓN DE PROYECTOS DE INVERSIÓN PÚBLICA","TALLER DE INVESTIGACIÓN - CIVIL","CURSO INTEGRADOR II - CIVIL","FUNDAMENTOS DE METODOLOGÍA VDC EN EDIFICACIONES","SEGURIDAD Y SALUD OCUPACIONAL EN OBRAS DE CONSTRUCCIÓN","SOSTENIBILIDAD AMBIENTAL EN LA CONSTRUCCIÓN","ANÁLISIS DE ESTRUCTURAS POR ELEMENTOS FINITOS","MÉTODOS NUMÉRICOS","ELEMENTARY BUSINESS ENGLISH"]
+};
+
+/* ================= REQUISITOS ================= */
+const requisitos = {
+ "MATEMÁTICA II":["MATEMÁTICA I"],
+ "INGLÉS II":["INGLÉS I"],
+ "COMPRENSIÓN Y REDACCIÓN DE TEXTOS II":["COMPRENSIÓN Y REDACCIÓN DE TEXTOS I"],
+ "ESTADÍSTICA DESCRIPTIVA Y Probabilidades":["MATEMÁTICA I"],
+ "DIBUJO PARA INGENIERÍA":["MATEMÁTICA I","INTRODUCCIÓN A LA VIDA UNIVERSITARIA"],
+ "LABORATORIO DE MECÁNICA CLÁSICA":["MATEMÁTICA II"],
+ "MECÁNICA CLÁSICA":["MATEMÁTICA II"],
+ "CÁLCULO I":["MATEMÁTICA II"],
+ "INVESTIGACIÓN ACADÉMICA":["INDIVIDUO Y MEDIO AMBIENTE","COMPRENSIÓN Y REDACCIÓN DE TEXTOS I"],
+ "GEOLOGÍA":["DIBUJO PARA INGENIERÍA"],
+ "PLANOS Y METRADOS DE OBRAS DE CONSTRUCCIÓN":["DIBUJO PARA INGENIERÍA"],
+ "INGLÉS III":["INGLÉS II"],
+ "CÁLCULO II":["CÁLCULO I"],
+ "ESTÁTICA":["MECÁNICA CLÁSICA","CÁLCULO I","LABORATORIO DE MECÁNICA CLÁSICA"],
+ "INGLÉS IV":["INGLÉS III"],
+ "CONSTRUCCIÓN":["MATERIALES DE CONSTRUCCIÓN","PLANOS Y METRADOS DE OBRAS DE CONSTRUCCIÓN"],
+ "FUNDAMENTOS DE DINÁMICA":["ESTÁTICA"],
+ "GEOMÁTICA":["GEOLOGÍA","TOPOGRAFÍA - INGENIERIA CIVIL"],
+ "TECNOLOGÍA DEL CONCRETO":["MATERIALES DE CONSTRUCCIÓN"],
+ "CÁLCULO AVANZADO PARA INGENIERÍA":["CÁLCULO II"],
+ "LABORATORIO DE ELASTICIDAD Y RESISTENCIA DE MATERIALES":["CÁLCULO AVANZADO PARA INGENIERÍA","FUNDAMENTOS DE DINÁMICA"],
+ "ELASTICIDAD Y RESISTENCIA DE MATERIALES":["CÁLCULO AVANZADO PARA INGENIERÍA","FUNDAMENTOS DE DINÁMICA"],
+ "MECÁNICA DE FLUIDOS":["FUNDAMENTOS DE DINÁMICA"],
+ "CURSO INTEGRADOR I - CIVIL":["TECNOLOGÍA DEL CONCRETO","CONSTRUCCIÓN","GEOMÁTICA"],
+ "ANÁLISIS ESTRUCTURAL I":["ELASTICIDAD Y RESISTENCIA DE MATERIALES","CURSO INTEGRADOR I - CIVIL"],
+ "ANÁLISIS ESTRUCTURAL II":["ANÁLISIS ESTRUCTURAL I"],
+ "CONCRETO ARMADO":["ANÁLISIS ESTRUCTURAL II"],
+ "INGENIERIA SISMORRESISTENTE":["CONCRETO ARMADO"]
+};
+
+/* ================= FUNCIONES ================= */
+function crearMalla(){
+ malla.innerHTML="";
+ for(const ciclo in cursos){
+  const div=document.createElement("div");
+  div.className="ciclo";
+  div.innerHTML=`<h2>${ciclo}</h2>`;
+  cursos[ciclo].forEach(curso=>{
+   const r=document.createElement("div");
+   r.className="ramo";
+   r.textContent=curso;
+
+   if(aprobados.includes(curso)){
+    r.classList.add("aprobado");
+   }else{
+    const faltan=(requisitos[curso]||[]).filter(req=>!aprobados.includes(req));
+    if(faltan.length>0){
+     r.classList.add("bloqueado");
+    }else{
+     r.classList.add("disponible");
+    }
+   }
+
+   r.onclick=()=>clickRamo(curso);
+   div.appendChild(r);
+  });
+  malla.appendChild(div);
+ }
+ actualizarProgreso();
+}
+
+function clickRamo(curso){
+ if(aprobados.includes(curso)){
+  aprobados=aprobados.filter(c=>c!==curso);
+ }else{
+  const faltan=(requisitos[curso]||[]).filter(r=>!aprobados.includes(r));
+  if(faltan.length){
+   mostrarMensaje("Debes aprobar primero: "+faltan.join(", "));
+   return;
+  }
+  aprobados.push(curso);
+ }
+ localStorage.setItem("aprobados",JSON.stringify(aprobados));
+ crearMalla();
+}
+
+function actualizarProgreso(){
+ const total=Object.values(cursos).flat().length;
+ const pct=Math.round((aprobados.length/total)*100);
+ barra.style.width=pct+"%";
+ texto.textContent=`Progreso: ${pct}%`;
+}
+
+function mostrarMensaje(t){
+ mensaje.textContent=t;
+ mensaje.classList.remove("oculto");
+ setTimeout(()=>mensaje.classList.add("oculto"),4000);
+}
+
+crearMalla();
