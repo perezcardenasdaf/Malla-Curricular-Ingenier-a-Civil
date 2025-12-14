@@ -1,7 +1,7 @@
 :root{
 --fondo:#fde6ef;
 --tarjeta:#ffffff;
---bloqueado:#f8c8dc;
+--bloqueado:#f3c6d9;
 --disponible:#f48fb1;
 --aprobado:#e91e63;
 --texto:#4a0033;
@@ -16,13 +16,16 @@ body.oscuro{
 --texto:#ffffff;
 }
 
-*{box-sizing:border-box;font-family:"Poppins",sans-serif}
+*{
+box-sizing:border-box;
+font-family:"Poppins",sans-serif;
+}
 
 body{
 margin:0;
+padding:20px;
 background:var(--fondo);
 color:var(--texto);
-padding:20px;
 }
 
 header{
@@ -38,8 +41,8 @@ border:none;
 padding:10px 16px;
 border-radius:14px;
 cursor:pointer;
-font-weight:600;
 color:white;
+font-weight:600;
 }
 
 #malla{
@@ -50,17 +53,20 @@ gap:20px;
 
 .ciclo{
 background:var(--tarjeta);
-padding:15px;
 border-radius:18px;
+padding:15px;
 }
 
-.ciclo h2{text-align:center}
+.ciclo h2{
+text-align:center;
+margin-bottom:10px;
+}
 
 .curso{
 background:var(--bloqueado);
 padding:10px;
-margin-bottom:8px;
 border-radius:12px;
+margin-bottom:8px;
 cursor:not-allowed;
 position:relative;
 }
@@ -79,8 +85,8 @@ text-decoration:line-through;
 .curso:hover::after{
 content:attr(data-req);
 position:absolute;
-left:0;
 top:110%;
+left:0;
 background:black;
 color:white;
 padding:8px;
