@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Malla Ingeniería Civil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Malla Ingeniería Civil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
 <header>
   <h1>Malla Curricular – Ingeniería Civil</h1>
-  <div class="actions">
-    <button id="resetBtn">🔁 Reiniciar malla</button>
-    <button id="modeBtn">🌙</button>
+  <div class="acciones">
+    <button id="reset">🔁 Reiniciar malla</button>
+    <button id="modo">🌙</button>
   </div>
 </header>
 
-<div id="grid" class="grid"></div>
-
-<section class="progress-box">
+<section class="progreso-general">
   <h3>📊 Progreso general</h3>
-  <div class="progress">
-    <span id="progressBar"></span>
-  </div>
+  <div class="barra"><span id="barraGeneral"></span></div>
 </section>
+
+<main id="malla"></main>
 
 <script src="script.js"></script>
 </body>
