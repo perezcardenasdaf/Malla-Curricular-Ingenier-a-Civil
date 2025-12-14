@@ -1,9 +1,8 @@
 :root {
-    --rosa-principal: #c77d9d;
+    --rosa: #c77d9d;
     --rosa-claro: #f3c6d7;
-    --gris-texto: #444;
+    --gris: #555;
     --fondo: #faf7f9;
-    --borde: #ddd;
 }
 
 * {
@@ -12,20 +11,30 @@
 }
 
 body {
-    margin: 0;
-    padding: 20px;
     background: var(--fondo);
-    color: var(--gris-texto);
+    padding: 20px;
+    margin: 0;
 }
 
 h1 {
     text-align: center;
-    color: var(--rosa-principal);
+    color: var(--rosa);
 }
 
 .subtitulo {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+}
+
+#reset {
+    display: block;
+    margin: 0 auto 25px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    background: var(--rosa);
+    color: white;
+    cursor: pointer;
 }
 
 #malla {
@@ -36,34 +45,31 @@ h1 {
 
 .ciclo {
     background: white;
-    border-radius: 14px;
     padding: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
 }
 
 .ciclo h2 {
     text-align: center;
-    color: var(--rosa-principal);
-    font-size: 18px;
-    margin-bottom: 10px;
+    color: var(--rosa);
 }
 
 .ramo {
     padding: 10px;
     margin-bottom: 8px;
     border-radius: 10px;
-    border: 1px solid var(--borde);
     cursor: pointer;
-    transition: all 0.3s ease;
-    background: white;
+    transition: 0.3s;
+    border: 1px solid #ddd;
 }
 
 .ramo:hover {
-    background: #fdf1f6;
+    background: #fdebf2;
 }
 
 .ramo.aprobado {
-    background: var(--rosa-principal);
+    background: var(--rosa);
     color: white;
     text-decoration: line-through;
 }
@@ -82,20 +88,13 @@ h1 {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: var(--rosa-principal);
+    background: var(--rosa);
     color: white;
     padding: 15px;
     border-radius: 12px;
-    max-width: 300px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    max-width: 320px;
 }
 
 .oculto {
     display: none;
-}
-
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
 }
