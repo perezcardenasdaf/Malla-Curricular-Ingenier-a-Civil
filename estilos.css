@@ -1,10 +1,10 @@
 :root{
   --rosa-fondo:#fff0f6;
-  --rosa-header:#d63384;
-  --rosa-bloqueado:#fde2ea;
+  --rosa-header:#c2185b;
+  --rosa-bloqueado:#fde4ec;
   --rosa-disponible:#f48fb1;
   --rosa-aprobado:#ad1457;
-  --gris:#9e9e9e;
+  --gris:#8e8e8e;
   --blanco:#ffffff;
 }
 
@@ -37,7 +37,7 @@ header{
   height:18px;
   width:0%;
   background:var(--rosa-aprobado);
-  transition:0.4s;
+  transition:.4s;
 }
 
 #malla{
@@ -49,7 +49,7 @@ header{
 
 .ciclo{
   background:var(--blanco);
-  border-radius:16px;
+  border-radius:18px;
   padding:15px;
   box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
@@ -59,11 +59,11 @@ header{
   color:var(--rosa-header);
 }
 
-/* RAMOS */
+/* ===== RAMOS ===== */
 .ramo{
   margin:8px 0;
   padding:10px;
-  border-radius:10px;
+  border-radius:12px;
   font-size:14px;
   transition:.3s;
 }
@@ -104,5 +104,4 @@ header{
   border-radius:14px;
   max-width:320px;
 }
-
 .oculto{display:none;}
