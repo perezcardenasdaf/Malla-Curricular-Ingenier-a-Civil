@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Malla Ingeniería Civil</title>
-  <link rel="stylesheet" href="estilos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
   <h1>Malla Curricular – Ingeniería Civil</h1>
-  <p id="textoProgreso">Progreso: 0%</p>
-  <div class="progreso-container">
-    <div id="barraProgreso"></div>
+  <div class="actions">
+    <button id="resetBtn">🔁 Reiniciar malla</button>
+    <button id="modeBtn">🌙</button>
   </div>
 </header>
 
-<div id="malla"></div>
+<div id="grid" class="grid"></div>
 
-<div id="mensaje" class="oculto"></div>
+<section class="progress-box">
+  <h3>📊 Progreso general</h3>
+  <div class="progress">
+    <span id="progressBar"></span>
+  </div>
+</section>
 
 <script src="script.js"></script>
 </body>
